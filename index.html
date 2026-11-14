@@ -51,10 +51,11 @@ input:not([type=checkbox]){font:inherit;width:100%;padding:9px;border-radius:8px
 body.out header,body.out nav{display:none}
 .lg{max-width:360px;margin:40px auto;text-align:center}
 textarea{font:inherit;padding:9px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--fg);margin:6px 0}
+.pb{height:10px;background:var(--bd);border-radius:6px;overflow:hidden}.pb i{display:block;height:100%;background:var(--ac)}.kt{font-size:20px;padding:16px}body.kid nav,body.kid header select,body.kid header .ic{display:none}.up{color:#2e9e62}.dn{color:#e0436f}
 </style></head><body>
 <header><select id="pf" onchange="S.cur=this.value;save();render()"></select><b>متابعة المذاكرة</b><button class="ic" style="color:#fff;font-size:20px" onclick="go('set')">⚙️</button></header>
 <main id="v"></main>
-<nav><button data-t="cal" onclick="go('cal')">📅<br>التقويم</button><button data-t="sch" onclick="go('sch')">🗓️<br>الجدول</button><button data-t="sm" onclick="go('sm')">📋<br>ملخص</button><button data-t="st" onclick="go('st')">📈<br>إحصائيات</button></nav>
+<nav><button data-t="cal" onclick="go('cal')">📅<br>التقويم</button><button data-t="sch" onclick="go('sch')">🗓️<br>الجدول</button><button data-t="pr" onclick="go('pr')">🕌<br>الصلاة</button><button data-t="sm" onclick="go('sm')">📋<br>ملخص</button><button data-t="st" onclick="go('st')">📈<br>إحصائيات</button></nav>
 <div id="md" hidden></div><div id="sheet"></div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -101,14 +102,14 @@ const t=on(sel),m=dm(sel);
 h+=`</div><div class="row"><b>${DN[sel.getDay()]} ${sel.getDate()} ${MN[sel.getMonth()]}</b></div>`;
 h+=t.length?t.map(x=>`<label class="tk" style="border-right-color:${x.c}"><input type="checkbox" ${m[x.id]?'checked':''} onchange="tg('${x.id}')"><span>${E(x.t)}</span><small>${fmt(x.s)} – ${fmt(x.e)}</small></label>`).join(''):'<p class="mu">لا مهام في هذا اليوم، أضفها من تبويب الجدول.</p>';
 return h}
-function vsch(){return`<div class="row"><button class="bt" onclick="ed()">+ مهمة جديدة</button><span><button class="bt o" onclick="shareImg()">صورة</button> <button class="bt o" onclick="window.print()">PDF / طباعة</button></span></div>`+ORD.map(i=>{const t=tl().filter(x=>x.days.includes(i)).sort(srt);return`<div class="card"><b>${DN[i]}</b>`+(t.length?t.map(x=>`<div class="tk" style="border-right-color:${x.c}" onclick="ed('${x.id}')"><span>${E(x.t)}</span><small>${fmt(x.s)} – ${fmt(x.e)}</small></div>`).join(''):'<p class="mu">—</p>')+'</div>'}).join('')}
-function vsum(){const a=st(today),w=agg(rg('w'));return`<div class="card c1"><div class="big">${pc(a.k,a.n)}%</div><div>إنجاز اليوم (${a.k} من ${a.n})</div></div><div class="card c1"><div class="big">${pc(w.k,w.n)}%</div><div>إنجاز آخر 7 أيام</div></div><div class="g2"><div class="card c1"><div class="big">⭐ ${w.k}</div><div>مهام تمت هذا الأسبوع</div></div><div class="card c1"><div class="big">🔥 ${streak()}</div><div>أيام متتالية مكتملة</div></div></div>`}
+function vsch(){return`<div class="row"><button class="bt" onclick="ed()">+ مهمة جديدة</button><button class="bt o" onclick="tpl()">📋 قالب وليد</button><span><button class="bt o" onclick="shareImg()">صورة</button> <button class="bt o" onclick="window.print()">PDF / طباعة</button></span></div>`+ORD.map(i=>{const t=tl().filter(x=>x.days.includes(i)).sort(srt);return`<div class="card"><b>${DN[i]}</b>`+(t.length?t.map(x=>`<div class="tk" style="border-right-color:${x.c}" onclick="ed('${x.id}')"><span>${E(x.t)}</span><small>${fmt(x.s)} – ${fmt(x.e)}</small></div>`).join(''):'<p class="mu">—</p>')+'</div>'}).join('')}
+function vsum(){const a=st(today),w=agg(rg('w'));return`<div class="card c1"><div class="big">${pc(a.k,a.n)}%</div><div>إنجاز اليوم (${a.k} من ${a.n})</div></div><div class="card c1"><div class="big">${pc(w.k,w.n)}%</div><div>إنجاز آخر 7 أيام</div></div><div class="g2"><div class="card c1"><div class="big">⭐ ${w.k}</div><div>مهام تمت هذا الأسبوع</div></div><div class="card c1"><div class="big">🔥 ${streak()}</div><div>أيام متتالية مكتملة</div></div></div>`+gl(w)}
 function vst(){const ds=rg(P),tot=agg(ds);let cols;
 if(P=='y')cols=MN.map((m,i)=>{const a=agg(ds.filter(d=>d.getMonth()==i));return[i+1,pc(a.k,a.n),a.n]});
 else cols=ds.map(d=>{const s=st(d);return[P=='w'?SH[d.getDay()]:d.getDate(),pc(s.k,s.n),s.n]});
 const pt=tl().map(x=>{let n=0,k=0;ds.forEach(d=>{if(x.days.includes(d.getDay())&&ok(x,d)){n++;if(dm(d)[x.id])k++}});return{x,n,k}}).filter(r=>r.n);
-return`<div class="chips">${[['w','أسبوع'],['m','شهر'],['y','سنة']].map(([k,l])=>`<span class="ch ${P==k?'on':''}" onclick="P='${k}';render()">${l}</span>`).join('')}</div><div class="card c1"><div class="big">${pc(tot.k,tot.n)}%</div><div>نسبة الإنجاز (${tot.k} من ${tot.n} مهمة)</div></div><div class="card"><div class="bars">${cols.map(c=>`<div class="bc"><div class="bb" style="height:${c[2]?Math.max(c[1],4):0}%"></div><small>${c[0]}</small></div>`).join('')}</div></div><b>حسب المهمة</b>`+(pt.length?pt.map(r=>`<div class="tk" style="border-right-color:${r.x.c}"><span>${E(r.x.t)}</span><small>${pc(r.k,r.n)}% (${r.k}/${r.n})</small></div>`).join(''):'<p class="mu">لا بيانات بعد.</p>')}
-function vset(){return`<div class="card"><b>لون التطبيق</b><div class="sw">${COL.map(c=>`<i style="background:${c}" class="${c==S.c?'on':''}" onclick="S.c='${c}';save();render()"></i>`).join('')}</div></div><div class="card"><label class="row"><span>المظهر الليلي</span><input type="checkbox" ${dark()?'checked':''} onchange="S.th=this.checked?'dark':'light';save();render()"></label></div><div class="card"><b>الملف الحالي</b><input value="${E(cur().n)}" onchange="cur().n=this.value||'الطفل';save();hd()"><div class="row"><button class="bt" onclick="addP()">+ ملف جديد</button>${S.p.length>1?`<button class="bt o" onclick="delP()">${delArm?'اضغط للتأكيد':'حذف الملف'}</button>`:''}</div></div><div class="card"><b>الحساب</b><p>${E(S.un||'')}</p><p class="mu">${CLOUD?'☁️ بياناتك محفوظة على السحابة وتتزامن تلقائيًا':'⚠️ لا يوجد اتصال بالسحابة الآن، سيتم الحفظ عند عودة الإنترنت'}</p><button class="bt o" onclick="AU.signOut()">تسجيل الخروج</button></div><p class="mu">الإصدار 2.0</p>`}
+return`<div class="chips">${[['w','أسبوع'],['m','شهر'],['y','سنة']].map(([k,l])=>`<span class="ch ${P==k?'on':''}" onclick="P='${k}';render()">${l}</span>`).join('')}</div><div class="card c1"><div class="big">${pc(tot.k,tot.n)}%</div><div>نسبة الإنجاز (${tot.k} من ${tot.n} مهمة)</div>${cmp(tot)}</div><div class="card"><div class="bars">${cols.map(c=>`<div class="bc"><div class="bb" style="height:${c[2]?Math.max(c[1],4):0}%"></div><small>${c[0]}</small></div>`).join('')}</div></div><b>حسب المهمة</b>`+(pt.length?pt.map(r=>`<div class="tk" style="border-right-color:${r.x.c}"><span>${E(r.x.t)}</span><small>${pc(r.k,r.n)}% (${r.k}/${r.n})</small></div>`).join(''):'<p class="mu">لا بيانات بعد.</p>')+`<div class="row"><button class="bt" onclick="sr('i')">تقرير صورة</button><button class="bt o" onclick="sr('p')">تقرير PDF</button></div>`}
+function vset(){return`<div class="card"><b>لون التطبيق</b><div class="sw">${COL.map(c=>`<i style="background:${c}" class="${c==S.c?'on':''}" onclick="S.c='${c}';save();render()"></i>`).join('')}</div></div><div class="card"><label class="row"><span>المظهر الليلي</span><input type="checkbox" ${dark()?'checked':''} onchange="S.th=this.checked?'dark':'light';save();render()"></label></div><div class="card"><b>الملف الحالي</b><input value="${E(cur().n)}" onchange="cur().n=this.value||'الطفل';save();hd()"><div class="row"><button class="bt" onclick="addP()">+ ملف جديد</button>${S.p.length>1?`<button class="bt o" onclick="delP()">${delArm?'اضغط للتأكيد':'حذف الملف'}</button>`:''}</div></div><div class="card"><b>التحفيز ووضع الطفل</b><input type="number" placeholder="هدف الأسبوع %" value="${S.g||80}" onchange="S.g=+this.value||80;save()"><input placeholder="هدية الأسبوع" value="${E(S.gift||'')}" onchange="S.gift=this.value;save()"><input type="password" maxlength="4" placeholder="رقم سري لولي الأمر (اختياري)" value="${E(S.pin||'')}" onchange="S.pin=this.value;save()"><button class="bt" onclick="kn()">تفعيل وضع الطفل</button></div><div class="card"><b>نسخة احتياطية</b><p class="mu">احفظ بياناتك في ملف على جهازك واسترجعها منه وقت ما تحب</p><div class="row"><button class="bt" onclick="bk()">حفظ نسخة</button><button class="bt o" onclick="$('#rf').click()">استرجاع</button></div><input type="file" id="rf" accept=".json,application/json" style="display:none" onchange="rs(this)"></div><div class="card"><b>الحساب</b><p>${E(S.un||'')}</p><p class="mu">${CLOUD?'☁️ بياناتك محفوظة على السحابة وتتزامن تلقائيًا':'⚠️ لا يوجد اتصال بالسحابة الآن، سيتم الحفظ عند عودة الإنترنت'}</p><button class="bt o" onclick="AU.signOut()">تسجيل الخروج</button></div><p class="mu">الإصدار 3.0</p>`}
 function addP(){const id=uid();S.p.push({id,n:'طفل جديد'});S.cur=id;save();hd();render()}
 function delP(){if(!delArm){delArm=true;render();return}S.p=S.p.filter(p=>p.id!=S.cur);delete S.t[S.cur];delete S.d[S.cur];S.cur=S.p[0].id;delArm=false;save();hd();render()}
 function ed(id){F=id?{...tl().find(x=>x.id==id)}:{id:'',t:'',s:'16:00',e:'17:00',days:[today.getDay()],c:COL[1]};fm()}
@@ -118,14 +119,67 @@ function fd(i){rd();F.days=F.days.includes(i)?F.days.filter(x=>x!=i):[...F.days,
 function sv(){F.t=$('#ft').value.trim();F.s=$('#fs').value;F.e=$('#fe').value;if(!F.t||!F.s||!F.e||!F.days.length)return;const l=tl();if(F.id){const i=l.findIndex(x=>x.id==F.id);l[i]=F}else l.push({...F,id:uid(),f:today.getTime()});save();cl();render()}
 function rm(){S.t[S.cur]=tl().filter(x=>x.id!=F.id);save();cl();render()}
 function cl(){$('#md').hidden=true;$('#md').innerHTML=''}
-function bs(){$('#sheet').innerHTML=`<h2>الجدول الأسبوعي — ${E(cur().n)}</h2><table><tr>${ORD.map(i=>`<th>${DN[i]}</th>`).join('')}</tr><tr>${ORD.map(i=>'<td>'+tl().filter(x=>x.days.includes(i)).sort(srt).map(x=>`<div class="sc" style="background:${x.c}"><small>${fmt(x.s)} – ${fmt(x.e)}</small><br>${E(x.t)}</div>`).join('')+'</td>').join('')}</tr></table>`}
+function bs(){if(REP){$('#sheet').innerHTML=rpt();return}$('#sheet').innerHTML=`<h2>الجدول الأسبوعي — ${E(cur().n)}</h2><table><tr>${ORD.map(i=>`<th>${DN[i]}</th>`).join('')}</tr><tr>${ORD.map(i=>'<td>'+tl().filter(x=>x.days.includes(i)).sort(srt).map(x=>`<div class="sc" style="background:${x.c}"><small>${fmt(x.s)} – ${fmt(x.e)}</small><br>${E(x.t)}</div>`).join('')+'</td>').join('')}</tr></table>`}
 async function shareImg(){if(!window.html2canvas){alert('تعذر تحميل أداة الصورة، استخدم PDF / طباعة');return}
 const cv=await html2canvas($('#sheet'),{scale:2,backgroundColor:'#ffffff'});
 cv.toBlob(async b=>{const f=new File([b],'schedule.png',{type:'image/png'});
 if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]});return}catch(e){if(e.name=='AbortError')return}}
 const m=$('#md');m.hidden=false;m.innerHTML=`<div class="box"><b>اضغط مطولًا على الصورة لحفظها أو مشاركتها</b><img src="${cv.toDataURL()}" style="width:100%"><button class="bt" onclick="cl()">إغلاق</button></div>`})}
-const V={cal:vcal,sch:vsch,sm:vsum,st:vst,set:vset};
-function render(){ap();if(!U){document.body.classList.add('out');$('#v').innerHTML=vlog();return}document.body.classList.remove('out');bs();$('#v').innerHTML=V[T]();document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==T))}
+async function bk(){const j=JSON.stringify({app:'st',v:1,date:new Date().toISOString(),data:S});const f=new File([j],'study-tracker-backup.json',{type:'application/json'});
+if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]});return}catch(e){if(e.name=='AbortError')return}}
+const a=document.createElement('a');a.href=URL.createObjectURL(f);a.download=f.name;document.body.appendChild(a);a.click();a.remove()}
+function rs(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const t=r.result;el.value='';try{const o=JSON.parse(t);if(!o||o.app!='st'||!o.data||!o.data.p||!o.data.cur)throw 0;if(!confirm('سيتم استبدال بياناتك الحالية بالنسخة المحفوظة. هل تريد المتابعة؟'))return;const un=S.un;S=o.data;if(un)S.un=un;save();hd();render();alert('تم استرجاع البيانات')}catch(e){alert('الملف غير صالح')}};r.readAsText(f)}
+let REP=0,KID=false,LOCD=null;try{KID=localStorage.getItem('kid')=='1'}catch(e){}
+function ptimes(dt,lat,lng,tz){const R=Math.PI/180,sn=x=>Math.sin(x*R),cs=x=>Math.cos(x*R),fx=h=>((h%24)+24)%24;let y=dt.getFullYear(),m=dt.getMonth()+1,d=dt.getDate();if(m<=2){y--;m+=12}const A=Math.floor(y/100),B=2-A+Math.floor(A/4);
+const J=Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+B-1524.5-lng/360;
+const sp=t=>{const D=J+t/24-2451545,g=(357.529+.98560028*D)%360,q=(280.459+.98564736*D)%360,L=(q+1.915*sn(g)+.02*sn(2*g))%360,e=23.439-.00000036*D,RA=fx(Math.atan2(cs(e)*sn(L),cs(L))/R/15);let E=q/15-RA;E=((E+12)%24+24)%24-12;return[Math.asin(sn(e)*sn(L))/R,E]};
+const mid=t=>fx(12-sp(t)[1]),at=(a,t,s)=>{const dc=sp(t)[0];return mid(t)+s*Math.acos((-sn(a)-sn(dc)*sn(lat))/(cs(dc)*cs(lat)))/R/15};
+const aa=-Math.atan(1/(1+Math.tan(Math.abs(lat-sp(13)[0])*R)))/R;
+return[at(19.5,5,-1),at(.833,6,-1),mid(12),at(aa,13,1),at(.833,18,1),at(17.5,18,1)].map(h=>fx(h+tz-lng/15))}
+const ft=h=>{h=((h%24)+24)%24;let H=Math.floor(h),M=Math.round((h-H)*60);if(M==60){M=0;H++}return fmt((H%24)+':'+String(M).padStart(2,'0'))};
+const CAI={lat:30.0444,lng:31.2357,n:'القاهرة (افتراضي)'};
+function gps(){if(!navigator.geolocation){alert('المتصفح لا يدعم تحديد الموقع');return}navigator.geolocation.getCurrentPosition(p=>{S.loc={lat:p.coords.latitude,lng:p.coords.longitude,t:Date.now()};save();render()},()=>alert('تعذر تحديد الموقع، فعّل الموقع للمتصفح وحاول مرة أخرى'),{timeout:15000})}
+function vpr(){const L=S.loc||CAI,d=new Date(),Y=d.getFullYear(),of=(m,dd,h)=>-new Date(Y,m,dd,h).getTimezoneOffset()/60,tz=of(d.getMonth(),d.getDate(),12),jan=of(0,1,12),jul=of(6,1,12),t=ptimes(d,L.lat,L.lng,tz),nm=['الفجر','الشروق','الظهر','العصر','المغرب','العشاء'],nh=d.getHours()+d.getMinutes()/60;
+let nx=t.findIndex((h,i)=>i!=1&&h>nh);if(nx<0)nx=0;let df=t[nx]-nh;if(df<0)df+=24;
+return`<div class="card c1"><b>${DN[d.getDay()]} ${d.getDate()} ${MN[d.getMonth()]}</b><p>📍 ${L.n||'موقعك الحالي'} (${L.lat.toFixed(2)}، ${L.lng.toFixed(2)})</p><p class="mu">التوقيت UTC${tz>=0?'+':''}${tz}${jan!=jul?(tz>Math.min(jan,jul)?' (الصيفي)':' (الشتوي)'):''}</p><button class="bt" onclick="gps()">📍 تحديث الموقع</button></div><div class="card c1"><b>الصلاة القادمة: ${nm[nx]}</b><div class="big">${ft(t[nx])}</div><div class="mu">بعد ${Math.floor(df)} ساعة و${Math.round((df%1)*60)} دقيقة</div></div>`+nm.map((n,i)=>`<div class="tk" style="border-right-color:${i==nx?'var(--ac)':'transparent'}"><span>${n}</span><b>${ft(t[i])}</b></div>`).join('')+`<p class="mu">الحساب بالطريقة المصرية (الفجر 19.5° والعشاء 17.5°) حسب توقيت جهازك، وقد يختلف بضع دقائق عن التقويم الرسمي أو أذان المسجد.</p>`}
+function gl(w){const p=pc(w.k,w.n),g=+S.g||80,s=streak(),B=[[3,'🥉'],[7,'🥈'],[14,'🥇'],[30,'🏆']].map(([n,e])=>`<span style="font-size:28px;opacity:${s>=n?1:.2}">${e}</span>`).join(' ');
+return`<div class="card"><b>هدف الأسبوع ${g}%</b><div class="pb"><i style="width:${Math.min(100,p*100/g)}%"></i></div><p>${p>=g?'🎉 مبروك! '+E(S.gift||'أحسنت'):'باقي '+(g-p)+'% على الهدف'+(S.gift?' — الهدية: '+E(S.gift):'')}</p></div><div class="card c1"><b>الشارات</b><div>${B}</div><small class="mu">3 أيام 🥉 · 7 🥈 · 14 🥇 · 30 🏆 متتالية</small></div>`}
+function rgp(p){const r=[],Y=today.getFullYear(),M=today.getMonth();if(p=='w')for(let i=13;i>=7;i--)r.push(addD(today,-i));else if(p=='m')for(let d=new Date(Y,M-1,1);d.getMonth()==(M+11)%12;d=addD(d,1))r.push(d);else for(let d=new Date(Y-1,0,1);d.getFullYear()==Y-1;d=addD(d,1))r.push(d);return r}
+function cmp(t){const a=agg(rgp(P));if(!a.n)return'<small class="mu">لا بيانات للفترة السابقة للمقارنة</small>';const d=pc(t.k,t.n)-pc(a.k,a.n);return`<small class="${d>=0?'up':'dn'}">${d>=0?'▲':'▼'} ${Math.abs(d)}% عن الفترة السابقة (${pc(a.k,a.n)}%)</small>`}
+function rpt(){const ds=rg(P),t=agg(ds),w={};ds.forEach(d=>{const s=st(d);if(s.n){const o=w[d.getDay()]||(w[d.getDay()]={n:0,k:0});o.n+=s.n;o.k+=s.k}});
+const bd=Object.entries(w).sort((a,b)=>pc(b[1].k,b[1].n)-pc(a[1].k,a[1].n))[0];
+const pt=tl().map(x=>{let n=0,k=0;ds.forEach(d=>{if(x.days.includes(d.getDay())&&ok(x,d)){n++;if(dm(d)[x.id])k++}});return{x,n,k}}).filter(r=>r.n).sort((a,b)=>pc(a.k,a.n)-pc(b.k,b.n));
+return`<h2>تقرير ${E(cur().n)} — ${{w:'آخر 7 أيام',m:'هذا الشهر',y:'هذه السنة'}[P]}</h2><div style="font-size:54px;font-weight:bold;color:#1f4e5f">${pc(t.k,t.n)}%</div><p>⭐ ${t.k} من ${t.n} مهمة · 🔥 ${streak()} أيام متتالية</p>${bd?`<p>أفضل يوم: ${DN[bd[0]]} (${pc(bd[1].k,bd[1].n)}%)</p>`:''}${pt.length?`<p>الأضعف: ${E(pt[0].x.t)} (${pc(pt[0].k,pt[0].n)}%)</p>`:''}<table><tr><th>المهمة</th><th>الإنجاز</th></tr>${pt.map(r=>`<tr><td>${E(r.x.t)}</td><td>${pc(r.k,r.n)}% (${r.k}/${r.n})</td></tr>`).join('')}</table>`}
+function sr(k){REP=1;bs();if(k=='i')shareImg().finally(()=>{REP=0;bs()});else{onafterprint=()=>{REP=0;bs()};print()}}
+const TPLD=`مراجعة القرآن بعد الفجر|05:30|06:30|0123456|0
+مراجعة القرآن بعد العشاء|19:00|20:00|013456|0
+مراجعة القرآن بعد العشاء (نصف ساعة)|20:00|20:30|2|0
+المدرسة|07:00|11:00|01234|1
+واجبات المدرسة|12:15|13:15|01234|3
+سنتر الدروس|14:00|17:00|024|3
+إنجليزي|13:15|14:00|1|6
+حساب|13:15|14:00|3|6
+مراجعة القرآن للحلقة|14:15|15:30|136|0
+حلقة تحفيظ القرآن|15:30|17:30|136|2
+عربي|09:00|09:45|6|4
+حساب|10:00|10:45|6|4
+قراءة وإملاء|11:00|11:30|6|4
+لعب حر|17:30|18:00|01346|5
+لعب حر|17:00|17:30|2|5
+الحساب الذهني|18:00|20:00|2|3
+مراجعة إنجليزي|18:00|18:30|0|6
+دين|18:00|18:30|4|4
+مراجعة عربي|08:15|09:00|5|4
+مراجعة حساب|09:15|10:00|5|4
+مراجعة إنجليزي|10:15|10:45|5|4
+مراجعة دين|10:45|11:15|5|4
+تعويض أي نشاط مرحّل|13:30|14:00|5|5`;
+function tpl(){if(!confirm('سيتم إضافة جدول وليد الأساسي كمهام جديدة تبدأ من اليوم. الأوقات تقريبية فعدّلها حسب الأذان. متابعة؟'))return;TPLD.split('\n').forEach(r=>{const[a,s,e,d,c]=r.split('|');tl().push({id:uid(),t:a,s,e,days:[...d].map(Number),c:COL[+c],f:today.getTime()})});save();render()}
+function vkid(){sel=D0();const t=on(sel),m=dm(sel),s=st(sel);return`<div class="card c1"><div class="big">${'⭐'.repeat(Math.min(s.k,10))||'💪'}</div><div>${s.n?s.k+' من '+s.n+' — '+pc(s.k,s.n)+'%':'لا مهام اليوم 🎉'}</div></div>`+t.map(x=>`<label class="tk kt" style="border-right-color:${x.c}"><input type="checkbox" style="width:26px;height:26px" ${m[x.id]?'checked':''} onchange="tg('${x.id}')"><span>${E(x.t)}</span><small>${fmt(x.s)}</small></label>`).join('')+`<div class="row"><button class="ic" onclick="kx()">🔒</button></div>`}
+function kx(){if(S.pin&&prompt('الرقم السري لولي الأمر')!=S.pin)return;KID=false;try{localStorage.setItem('kid','0')}catch(e){}render()}
+function kn(){KID=true;try{localStorage.setItem('kid','1')}catch(e){}render()}
+const V={pr:vpr,cal:vcal,sch:vsch,sm:vsum,st:vst,set:vset};
+function render(){ap();if(!U){document.body.classList.add('out');$('#v').innerHTML=vlog();return}document.body.classList.remove('out');bs();document.body.classList.toggle('kid',KID);$('#v').innerHTML=(KID?vkid:V[T])();document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==T))}
 const FB={apiKey:"AIzaSyDtyqLzfeJe-sRAeR29Nw13UZdXqZmX9Rg",authDomain:"task-tracker-fc6c8.firebaseapp.com",projectId:"task-tracker-fc6c8",appId:"1:427178568889:web:fd8afb27f3fda8ef9f3f68"}; // ← الصق إعدادات Firebase هنا (أو من شاشة الإعداد الأولى)
 const fbcfg=()=>FB.apiKey?FB:(()=>{try{return JSON.parse(localStorage.getItem('fbcfg'))}catch(e){return null}})();
 async function hx(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
