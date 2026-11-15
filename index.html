@@ -1,6 +1,7 @@
 <!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>متابعة المذاكرة</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800&family=Aref+Ruqaa:wght@700&display=swap">
 <style>
 :root{--bg:#f6f4f1;--fg:#1d1b1a;--card:#fff;--mut:#6d6764;--bd:#e3ddd8;--ac:#2e7d6b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1f1c1b;--fg:#f1ebe8;--card:#2c2826;--mut:#a79f9b;--bd:#3d3836}}
@@ -54,17 +55,29 @@ textarea{font:inherit;padding:9px;border-radius:8px;border:1px solid var(--bd);b
 .pb{height:10px;background:var(--bd);border-radius:6px;overflow:hidden}.pb i{display:block;height:100%;background:var(--ac)}.kt{font-size:20px;padding:16px}body.kid nav,body.kid header select,body.kid header .ic{display:none}.up{color:#2e9e62}.dn{color:#e0436f}
 .box select,.card select{font:inherit;width:100%;padding:9px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--fg);margin:4px 0}nav button{font-size:11px}
 body.out{background:#fbf7ec;max-width:none}body.out main{padding:0}
-.lgp{max-width:480px;margin:0 auto;min-height:100vh;background:#fbf7ec;display:flex;flex-direction:column}
-.th{text-align:center;padding:26px 12px 18px;color:#0e5b36}.th h1{margin:0 0 8px;font-size:30px}.th p{margin:3px 0;font-size:15px;color:#2b4a3a}
-.gw{background:#0e5b36;flex:1;border-top:4px solid #d9b23c;border-radius:50% 50% 0 0/26px 26px 0 0;padding:26px 14px 0}
-.fc{background:#fbf7ec;border-radius:26px;padding:18px 16px;color:#1b2b22}.fc h2{margin:0 0 12px;text-align:center;color:#0e5b36}
-.fi{display:flex;align-items:center;gap:8px;border:1.5px solid #cfcab8;border-radius:14px;padding:3px 12px;margin:10px 0;background:#fffdf6}
-.fi input,.fi select{flex:1;min-width:0;border:0!important;background:transparent!important;margin:0!important;color:#1b2b22;font:inherit;padding:10px 4px}
-.fi i{font-style:normal;font-size:20px}.fi.er{border-color:#d93025;background:#fdecea}
-.fe{color:#d93025;font-size:12px;margin:-4px 8px 6px;min-height:14px}
-.gb{display:block;width:100%;background:#0e5b36;color:#fff;border:0;border-radius:14px;padding:13px;font:inherit;font-size:18px;margin:12px 0}.gb.o{background:none;color:#0e5b36;border:1.5px solid #0e5b36}
-.lk{text-align:center;color:#1a62c9;margin:8px}.sg{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:0 6px 6px}.sg small{color:#555}.sg span{background:#e3f1e8;color:#0e5b36;border-radius:14px;padding:4px 10px;font-size:13px}
-.lf{display:flex;align-items:center;justify-content:space-between;color:#fff;padding:20px 8px 28px;font-size:20px;font-style:italic}
+.lgp{max-width:480px;margin:0 auto;min-height:100vh;background:#fbf7ec;position:relative;overflow:hidden;font-family:'Cairo','Tajawal',system-ui,Tahoma,sans-serif;color:#1b2b22}
+.th{position:relative;text-align:center;padding:34px 14px 10px}.th svg.wm{position:absolute;inset:0;width:100%;height:100%;opacity:.07}
+.th h1{position:relative;margin:0 0 10px;font-size:34px;font-weight:800;color:#0e5b36;line-height:1.3}.th p{position:relative;margin:4px 0;font-size:17px;font-weight:600;color:#1d3a2b}
+.wv{display:block;width:100%;height:70px;margin-top:8px}
+.fc{background:#fbf7ec;border-radius:32px 32px 0 0;margin:-34px 12px 0;position:relative;padding:22px 20px 8px}
+.fc h2{margin:0 0 14px;text-align:center;font-size:27px;font-weight:800;color:#0e5b36}
+.fi{display:flex;align-items:center;gap:12px;border:1.5px solid #d3cfc0;border-radius:16px;padding:4px 14px;margin:12px 0;background:#fffdf7;min-height:58px}
+.fi .ico{width:28px;height:28px;color:#0e5b36;flex:none;display:flex}.fi .ico svg{width:100%;height:100%;fill:currentColor}
+.fi .lb{flex:1;min-width:0;display:flex;flex-direction:column}.fi .lb small{color:#6d6d66;font-size:13px;font-weight:600}
+.fi input,.fi select{flex:1;min-width:0;border:0!important;background:transparent!important;margin:0!important;color:#1b2b22;font:inherit;font-size:17px;font-weight:600;padding:8px 0;outline:0;appearance:none;-webkit-appearance:none}
+.fi input::placeholder{color:#8e8e86;font-weight:500}
+.fi .ey{width:26px;height:26px;color:#33443a;flex:none;cursor:pointer;display:flex}.fi .ey svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2}
+.fi.er{border-color:#d93025;background:#fdecea}
+.fe{color:#d93025;font-size:13px;font-weight:600;margin:-6px 10px 6px;min-height:16px}
+.gb{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;background:#0e5b36;color:#fff;border:0;border-radius:16px;min-height:58px;font:inherit;font-size:21px;font-weight:700;margin:14px 0;box-shadow:0 3px 0 #0a4326}
+.gb svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.2}.gb.o{background:#fffdf7;color:#0e5b36;border:1.5px solid #0e5b36;box-shadow:none}
+.lk{display:flex;justify-content:center;align-items:center;gap:8px;color:#1a5fc0;font-size:18px;font-weight:600;margin:10px 0;cursor:pointer}.lk svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2}
+.or{display:flex;align-items:center;gap:12px;color:#55554d;margin:8px 4px}.or:before,.or:after{content:"";flex:1;height:1.5px;background:#d3cfc0}
+.sg{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:0 6px 6px}.sg small{color:#555}.sg span{background:#e3f1e8;color:#0e5b36;border-radius:14px;padding:4px 10px;font-size:14px;font-weight:600}
+.lf{position:relative;display:flex;align-items:center;justify-content:space-between;padding:8px 22px 0;margin-top:4px}
+.lf .sl{font-family:'Aref Ruqaa','Cairo',serif;font-size:24px;font-weight:700;color:#0e5b36;text-align:center;white-space:nowrap}.lf .sl i{display:block;height:8px;margin-top:2px}
+.lf svg.bk{width:150px;height:112px;margin-bottom:-12px;position:relative;z-index:2}
+.hl{display:block;width:100%;height:58px;margin-top:-30px}
 </style></head><body>
 <header><select id="pf" onchange="S.cur=this.value;save();render()"></select><b>متابعة المذاكرة</b><button class="ic" style="color:#fff;font-size:20px" onclick="go('set')">⚙️</button></header>
 <main id="v"></main>
@@ -218,23 +231,38 @@ async function taken(n){if(!FS)return false;try{return(await FS.doc('rec/'+await
 function uchk(){clearTimeout(UT);UT=setTimeout(async()=>{const u=$('#lu').value;mk(nm(u)?await taken(u):0,u)},500)}
 async function mk(t,u){const f=$('#fu'),e=$('#ue'),s=$('#us');if(!f)return;f.classList.toggle('er',!!t);e.textContent=t?'هذا الاسم موجود':'';s.innerHTML='';if(!t)return;const n=u.trim(),r=x=>Math.floor(Math.random()*x),c=[n+(10+r(90)),n+'_'+(100+r(900)),n+'#'+(1+r(99)),n+'.'+(2000+r(26)),n+(1000+r(9000))],ok=[];for(const x of c){if(!(await taken(x)))ok.push(x);if(ok.length==3)break}s.innerHTML='<small>اقتراحات:</small>'+ok.map(x=>`<span onclick="usg(this)">${E(x)}</span>`).join('')}
 function usg(el){$('#lu').value=el.textContent;uchk()}
-const eye=e=>{const i=e.parentNode.querySelector('input');i.type=i.type=='password'?'text':'password'};
+const eye=e=>{const i=e.parentNode.querySelector('input');i.type=i.type=='password'?'text':'password';e.innerHTML=i.type=='password'?IC.eo:IC.ev};
 const gm=m=>{LM=m;FR=null;render()};
 async function doAuth(m){const u=$('#lu').value,p=$('#lp').value;if(!nm(u)||!p){lerr('اكتب اسم المستخدم وكلمة المرور');return}let q,a;
 if(m=='up'){q=+$('#lq').value;a=na($('#la').value);if(a.length<2){lerr('اكتب إجابة الاسترجاع');return}if(await taken(u)){mk(1,u);lerr('');return}}
 lerr('جارٍ المعالجة…');try{const c=await cred(u,p);PEND=u.trim();if(m=='up'){const r=await AU.createUserWithEmailAndPassword(c.e,c.p);try{await saveRec(u,p,q,a,r.user.uid)}catch(e){}}else await AU.signInWithEmailAndPassword(c.e,c.p)}catch(e){PEND='';if(e.code=='auth/email-already-in-use'){mk(1,u);lerr('')}else lerr(AERR[e.code]||('خطأ: '+(e.code||e.message)))}}
 async function fgo(){const u=$('#lu').value;if(!nm(u)){lerr('اكتب اسم المستخدم');return}
-if(!FR){lerr('جارٍ البحث…');try{const d=await FS.doc('rec/'+await rid(u)).get();if(!d.exists){lerr('لا يوجد سؤال استرجاع لهذا الحساب');return}FR=d.data();$('#fq').innerHTML=`<div class="fi"><i>❓</i><span style="flex:1">${E(SQ[FR.q]||'')}</span></div><div class="fi"><i>🛡️</i><input id="la" placeholder="أدخل الإجابة"></div>`;lerr('')}catch(e){lerr('تعذر الاتصال')}return}
+if(!FR){lerr('جارٍ البحث…');try{const d=await FS.doc('rec/'+await rid(u)).get();if(!d.exists){lerr('لا يوجد سؤال استرجاع لهذا الحساب');return}FR=d.data();$('#fq').innerHTML=FI('q','<span style="flex:1;font-weight:600">'+E(SQ[FR.q]||'')+'</span>')+FI('s','<div class="lb"><small>إجابة الاسترجاع</small><input id="la" placeholder="أدخل الإجابة"></div>');lerr('')}catch(e){lerr('تعذر الاتصال')}return}
 const a=na($('#la').value);if(!a)return;lerr('جارٍ التحقق…');try{const k=await akey(a,ub(FR.s)),p=await crypto.subtle.decrypt({name:'AES-GCM',iv:ub(FR.i)},k,ub(FR.c));FR=null;$('#fq').innerHTML=`<div class="card c1">كلمة المرور الخاصة بك:<div class="big">${E(new TextDecoder().decode(p))}</div></div>`;$('#fb').style.display='none';lerr('')}catch(e){lerr('الإجابة غير صحيحة')}}
 async function srec(){const a=na($('#sa').value),p=$('#sp').value;if(!a||!p||!S.un){alert('اكتب الإجابة وكلمة المرور الحالية');return}try{const c=await cred(S.un,p);await U.reauthenticateWithCredential(firebase.auth.EmailAuthProvider.credential(c.e,c.p));await saveRec(S.un,p,+$('#sq').value,a,U.uid);alert('تم حفظ سؤال الاسترجاع')}catch(e){alert('تعذر الحفظ: تأكد من كلمة المرور وتحديث قواعد Firestore')}}
-const BK='<svg width="74" height="50" viewBox="0 0 74 50"><rect x="4" y="34" width="62" height="12" rx="2" fill="#e0b63c"/><rect x="9" y="21" width="56" height="12" rx="2" fill="#3f7fb5"/><rect x="14" y="8" width="50" height="12" rx="2" fill="#2f9e5f"/></svg>';
-const shell=b=>`<div class="lgp"><div class="th"><h1>تطبيق متابعة مذاكرة</h1><p>فكرة وتصميم مهندس أحمد عبد الرحيم</p><p>أبو أنس القليعي</p></div><div class="gw"><div class="fc">${b}</div><div class="lf">${BK}<span>معًا .. لمستقبل أفضل</span></div></div></div>`;
-const FI=(ic,inner,id)=>`<div class="fi" ${id?`id="${id}"`:''}><i>${ic}</i>${inner}</div>`;
+const IC={u:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c0-4.6 3.8-7.4 8.5-7.4s8.5 2.8 8.5 7.4z"/></svg>',
+l:'<svg viewBox="0 0 24 24"><path d="M7 11V8a5 5 0 0 1 10 0v3" fill="none" stroke="currentColor" stroke-width="2.4"/><rect x="4" y="10.5" width="16" height="11" rx="3"/><circle cx="12" cy="15.6" r="1.7" fill="#fffdf7"/><rect x="11.2" y="16" width="1.6" height="3" fill="#fffdf7"/></svg>',
+q:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5"/><text x="12" y="17.2" font-size="15" font-weight="800" text-anchor="middle" fill="#fffdf7" stroke="none">?</text></svg>',
+s:'<svg viewBox="0 0 24 24"><path d="M12 1.8l8.4 3.1v6.3c0 5.2-3.6 9.5-8.4 11-4.8-1.5-8.4-5.8-8.4-11V4.9z"/><path d="M8 12l3 3 5-6" fill="none" stroke="#fffdf7" stroke-width="2.2"/></svg>',
+eo:'<svg viewBox="0 0 24 24"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 4l16 16"/></svg>',
+ev:'<svg viewBox="0 0 24 24"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+ln:'<svg viewBox="0 0 24 24"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4M4 12h11M11 7.5l4.5 4.5-4.5 4.5"/></svg>',
+up:'<svg viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M2.5 20c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5M19 7v6M16 10h6"/></svg>',
+ck:'<svg viewBox="0 0 24 24" style="fill:#fff;stroke:none"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.3 3.3L17 9" fill="none" stroke="#0e5b36" stroke-width="2.6"/></svg>',
+bk:'<svg viewBox="0 0 24 24"><path d="M20 12H5M11 6l-6 6 6 6"/></svg>',
+ch:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#33443a" stroke-width="2.4" style="flex:none"><path d="M6 9l6 6 6-6"/></svg>'};
+const WM='<svg class="wm" viewBox="0 0 400 160" preserveAspectRatio="none"><g fill="#0e5b36"><rect x="8" y="30" width="16" height="90" rx="2"/><rect x="28" y="52" width="14" height="68" rx="2"/><rect x="46" y="20" width="18" height="100" rx="2"/><rect x="68" y="44" width="12" height="76" rx="2"/><rect x="330" y="44" width="14" height="76" rx="2"/><rect x="348" y="22" width="18" height="98" rx="2"/><rect x="370" y="38" width="16" height="82" rx="2"/><rect x="0" y="120" width="110" height="4"/><rect x="300" y="120" width="100" height="4"/></g></svg>';
+const WV='<svg class="wv" viewBox="0 0 400 70" preserveAspectRatio="none"><path d="M0 8Q200 78 400 8V70H0Z" fill="#0e5b36"/><path d="M0 8Q200 78 400 8" fill="none" stroke="#d9b23c" stroke-width="3"/><path d="M150 24Q200 36 250 24" fill="none" stroke="#d9b23c" stroke-width="3" stroke-linecap="round"/></svg>';
+const BKS='<svg class="bk" viewBox="0 0 170 120"><path d="M20 104C6 82 10 58 32 48c4 22 0 40-12 56z" fill="#9cc965"/><path d="M34 106c-2-24 8-42 28-48 0 22-10 38-28 48z" fill="#6aa84f"/><rect x="22" y="84" width="132" height="22" rx="4" fill="#d9a62e"/><rect x="38" y="90" width="112" height="10" rx="2" fill="#f6ecc9"/><rect x="22" y="84" width="16" height="22" rx="4" fill="#b8841f"/><rect x="30" y="60" width="120" height="22" rx="4" fill="#2f6f9f"/><rect x="46" y="66" width="100" height="10" rx="2" fill="#e8eef2"/><rect x="30" y="60" width="16" height="22" rx="4" fill="#245577"/><rect x="26" y="36" width="118" height="22" rx="4" fill="#2e8b57"/><rect x="42" y="42" width="98" height="10" rx="2" fill="#e6f1e8"/><rect x="26" y="36" width="16" height="22" rx="4" fill="#1f6b41"/></svg>';
+const UL='<i><svg viewBox="0 0 160 8" width="160" height="8"><path d="M4 5Q80 -1 156 4" fill="none" stroke="#d9b23c" stroke-width="3" stroke-linecap="round"/></svg></i>';
+const HL='<svg class="hl" viewBox="0 0 400 58" preserveAspectRatio="none"><path d="M0 58V34Q110 4 250 30T400 14V58Z" fill="#0e5b36"/></svg>';
+const shell=b=>`<div class="lgp"><div class="th">${WM}<h1>تطبيق متابعة مذاكرة</h1><p>فكرة وتصميم مهندس أحمد عبد الرحيم</p><p>أبو أنس القليعي</p></div>${WV}<div class="fc">${b}</div><div class="lf"><div class="sl">معًا .. لمستقبل أفضل${UL}</div>${BKS}</div>${HL}</div>`;
+const FI=(ic,inner,id)=>`<div class="fi" ${id?`id="${id}"`:''}><span class="ico">${IC[ic]}</span>${inner}</div>`;
 function vlog(){if(!fbcfg())return`<div class="card lg"><h2>إعداد Firebase</h2><p class="mu">الصق هنا إعدادات مشروعك (firebaseConfig)</p><textarea id="cf" rows="8" style="width:100%" dir="ltr"></textarea><button class="bt" onclick="svc()">حفظ</button></div>`;
-const U_=FI('👤','<input id="lu" placeholder="اسم المستخدم" autocomplete="username"'+(LM=='up'?' oninput="uchk()"':'')+'>',LM=='up'?'fu':''),P_=FI('🔒','<input id="lp" type="password" maxlength="4" placeholder="كلمة المرور'+(LM=='up'?' (حتى 4 خانات)':'')+'"><i onclick="eye(this)" style="cursor:pointer">👁</i>'),back='<div class="lk" onclick="gm(\'in\')">← العودة إلى تسجيل الدخول</div>';
-if(LM=='up')return shell(`<h2>إنشاء حساب جديد</h2>${U_}<div class="fe" id="ue"></div><div class="sg" id="us"></div>${P_}${FI('❓',`<select id="lq">${SQ.map((q,i)=>`<option value="${i}">${q}</option>`).join('')}</select>`)}${FI('🛡️','<input id="la" placeholder="إجابة الاسترجاع">')}<p id="le" class="fe"></p><button class="gb" onclick="doAuth('up')">إنشاء الحساب ✔</button>${back}`);
-if(LM=='fg')return shell(`<h2>استرجاع كلمة المرور</h2>${U_}<div id="fq"></div><p id="le" class="fe"></p><button class="gb" id="fb" onclick="fgo()">متابعة</button>${back}`);
-return shell(`<h2>تسجيل الدخول</h2>${U_}${P_}<p id="le" class="fe"></p><button class="gb" onclick="doAuth('in')">دخول ⇦</button><div class="lk" onclick="gm('fg')">نسيت كلمة المرور</div><div class="lk" style="color:#8a8a78">— أو —</div><button class="gb o" onclick="gm('up')">إنشاء حساب جديد ＋</button>`)}
+const up=LM=='up',U_=FI('u','<input id="lu" placeholder="اسم المستخدم" autocomplete="username"'+(up?' oninput="uchk()"':'')+'>',up?'fu':''),P_=FI('l','<input id="lp" type="password" maxlength="4" placeholder="كلمة المرور'+(up?' (حتى 4 خانات)':'')+'"><span class="ey" onclick="eye(this)">'+IC.eo+'</span>'),back=`<div class="lk" onclick="gm('in')">${IC.bk}<span>العودة إلى تسجيل الدخول</span></div>`;
+if(up)return shell(`<h2>إنشاء حساب جديد</h2>${U_}<div class="fe" id="ue"></div><div class="sg" id="us"></div>${P_}${FI('q',`<div class="lb"><small>سؤال استرجاع</small><select id="lq">${SQ.map((q,i)=>`<option value="${i}">${q}</option>`).join('')}</select></div>${IC.ch}`)}${FI('s','<div class="lb"><small>إجابة الاسترجاع</small><input id="la" placeholder="أدخل الإجابة"></div>')}<p id="le" class="fe"></p><button class="gb" onclick="doAuth('up')">${IC.ck}<span>إنشاء الحساب</span></button>${back}`);
+if(LM=='fg')return shell(`<h2>استرجاع كلمة المرور</h2>${U_}<div id="fq"></div><p id="le" class="fe"></p><button class="gb" id="fb" onclick="fgo()"><span>متابعة</span></button>${back}`);
+return shell(`<h2>تسجيل الدخول</h2>${U_}${P_}<p id="le" class="fe"></p><button class="gb" onclick="doAuth('in')">${IC.ln}<span>دخول</span></button><div class="lk" onclick="gm('fg')">نسيت كلمة المرور</div><div class="or"><span>أو</span></div><button class="gb o" onclick="gm('up')">${IC.up}<span>إنشاء حساب جديد</span></button>`)}
 function svc(){const o={};$('#cf').value.replace(/["']?(\w+)["']?\s*:\s*["']([^"']+)["']/g,(m,k,v)=>{o[k]=v;return m});if(!o.apiKey||!o.projectId)return;localStorage.setItem('fbcfg',JSON.stringify(o));location.reload()}
 (function init(){render();const c=fbcfg();if(!c)return;if(!window.firebase){lerr('تعذر تحميل Firebase، تأكد من الاتصال بالإنترنت');return}
 try{firebase.initializeApp(c);AU=firebase.auth();FS=firebase.firestore();try{FS.enablePersistence({synchronizeTabs:true}).catch(()=>{})}catch(e){}
